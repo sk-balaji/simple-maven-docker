@@ -1,7 +1,9 @@
 FROM alpine/git
 FROM maven:3.5-jdk-8-alpine
-WORKDIR /simple-maven-docker
+WORKDIR /app
+COPY . .
 RUN mvn install 
 FROM openjdk:8-jre-alpine
-COPY --from=1 /simple-maven-docke/target/demo-0.0.1-SNAPSHOT.jar /simple-maven-docker 
+WORKDIR /app
+COPY /app/target/demo-0.0.1-SNAPSHOT.jar /app
 CMD ["java -jar demo-0.0.1-SNAPSHOT.jar"] 
